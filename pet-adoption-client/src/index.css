@@ -1,8 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #0f766e;
+  --primary-dark: #115e59;
+  --primary-light: #ccfbf1;
+  --accent: #f59e0b;
+  --text: #172033;
+  --muted: #64748b;
+  --surface: #ffffff;
+  --background: #f8fafc;
+  --border: #e2e8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Lato', sans-serif;
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+::selection {
+  background: #99f6e4;
+  color: #134e4a;
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-space {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-label {
+    @apply mb-3 inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-2 text-sm font-bold text-teal-700;
+  }
+
+  .section-title {
+    @apply text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl;
+  }
+
+  .section-description {
+    @apply mt-4 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg;
+  }
+
+  .primary-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 font-bold text-white shadow-lg shadow-teal-700/20 transition duration-300 hover:-translate-y-0.5 hover:bg-teal-800 hover:shadow-xl;
+  }
+
+  .secondary-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 font-bold text-slate-700 transition duration-300 hover:-translate-y-0.5 hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700;
+  }
+
+  .soft-card {
+    @apply rounded-2xl border border-slate-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #99a1ad;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Page animation */
+.page-enter {
+  animation: pageEnter 0.45s ease both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

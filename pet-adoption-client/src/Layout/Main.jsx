@@ -1,16 +1,19 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../Shared/Navbar/Navbar";
 import Footer from "../Shared/Footer/Footer";
-
+import Navbar from "../Shared/Navbar/Navbar";
 
 const Main = () => {
-    return (
-        <div>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
-    );
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Navbar />
+
+      <main className="page-enter">
+        <Outlet />
+      </main>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default Main;

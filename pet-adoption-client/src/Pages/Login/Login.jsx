@@ -1,137 +1,123 @@
-import { Helmet } from "react-helmet-async";
-import { MdEmail } from "react-icons/md";
-import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { Parallax } from "react-parallax";
-import SocialLogin from "../../Components/SocialLogin/SocialLogin";
-import { FaLock } from "react-icons/fa";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Swal from "sweetalert2";
-
-
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+import { AuthContext } from "../../Providers/AuthProvider";
 const Login = () => {
-    /////////////////////////////////////ban check
-    const loadUser = useLoaderData([]);
-
-    //////////////////////////////////////
-    const [loginError, setLoginError] = useState('');
-
-    const { signIn, logOut } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const location = useLocation();
-    /////////////////////////////////////////////////
-
-    const handleLogOut = () => {
-        logOut()
-            .then(() => {
-                console.log('logout user');
-                navigate('/');
-                Swal.fire({
-                    position: "top-end",
-                    icon: "warning",
-                    title: "You are Banned",
-                    timer: 1500
-                });
-            })
-            .catch(error => console.log(error));
-    }
-    //////////////////////////////////////////
-
-
-    const from = location.state?.from?.pathname || '/';
-
-    const handleLogin = e => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        setLoginError('');
-        signIn(email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-
-                // //////////////////////////
-                const logUser = loadUser.filter(myemail => myemail.email === user.email);
-                if (logUser[0].role === 'ban') {
-                    handleLogOut();
-                }
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Welcome Back",
-                    timer: 1500
-                });
-                navigate(from, {
-                    replace: true
-                });
-            })
-            .catch(error => {
-                console.error(error.message);
-                setLoginError("Doesn't Match");
-            })
-    }
-
-
-    const bgimg = "https://i.ibb.co/jL0Scyy/banner3.png";
-
-    return (
-        <>
-            <Helmet>
-                <title>Paw | LogIn</title>
-            </Helmet>
-            <Parallax bgImage={bgimg} blur={{ min: -50, max: 50 }} >
-                <div className=" min-h-[460px] relative">
-                    <div className=" absolute bottom-1/4 w-full  grid justify-center gap-3">
-                        <p className="text-3xl text-slate-100 mb-3 font-bold animate-pulse"><Link to="/signup">Here for the first time ?</Link></p>
-                        <SocialLogin></SocialLogin>
-                    </div>
-                </div></Parallax>
-
-            <div className=" m-10 grid grid-cols-2">
-                <div>
-                    <p className="text-6xl text-slate-800 font-bold py-5 mb-3">Welcome !</p>
-                    <hr className="w-1/4 border-2 border-teal-900" />
-                    <div className="mt-8 ">
-                        <form onSubmit={handleLogin}>
-                            <div>
-                                <div className="flex items-center gap-5 mb-5">
-                                    <MdEmail className="text-4xl text-teal-800"></MdEmail>
-                                    <input type="email" name="email" placeholder="Email" className=" py-3 border-b-2 focus:border-b-4 outline-none text-slate-900 text-3xl font-medium bg-slate-100  border-teal-800 placeholder:text-slate-900" required />
-                                </div>
-                                <div className="flex items-center gap-5 mb-5">
-                                    <FaLock className="text-4xl text-teal-800"></FaLock>
-                                    <input type="password" name="password" placeholder="Password" className=" py-3 border-b-2 focus:border-b-4 outline-none text-slate-900 text-3xl font-medium bg-slate-100  border-teal-800 placeholder:text-slate-900" required />
-                                </div>
-                                {
-                                    loginError &&
-                                    <p className="text-red-500">Invalid User or Wrong Password</p>
-                                }
-                            </div>
-
-                            <div className=" mt-6">
-
-                                <input className="py-2 px-3 text-2xl text-slate-100 rounded-lg font-bold hover:border-teal-800 hover:bg-transparent border-2 border-teal-800 hover:text-teal-700 bg-teal-800" type="submit" value="Login" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <div className="col-span-3 grid grid-rows-2 grid-flow-col gap-5">
-                        <div className=" row-span-2 ">
-                            <img className="rounded-3xl" src="https://i.ibb.co/LR7YKNr/petad1.png" alt="1" />
-                        </div>
-                        <div className="row-span-1">
-                            <img className="rounded-3xl" src="https://i.ibb.co/fX5yJk7/petad2.png" alt="2" />
-                        </div>
-                        <div className="row-span-1">
-                            <img className="rounded-3xl" src="https://i.ibb.co/yscLhXm/petad3.png" alt="3" />
-                        </div>
-                    </div>
-                </div>
+  const loadUser = useLoaderData([]);
+  const [loginError, setLoginError] = useState("");
+  const { signIn, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const handle = (e) => {
+    e.preventDefault();
+    const f = e.target;
+    setLoginError("");
+    signIn(f.email.value, f.password.value)
+      .then((result) => {
+        const u = result.user;
+        const row = loadUser.find((x) => x.email === u.email);
+        if (row?.role === "ban") {
+          logOut();
+          return;
+        }
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Welcome back",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch(() => setLoginError("Invalid email or password"));
+  };
+  return (
+    <>
+      <Helmet>
+        <title>Paw | Login</title>
+      </Helmet>
+      <div className="paw-container flex min-h-screen items-center justify-center py-28">
+        <div className="grid w-full max-w-5xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/10 lg:grid-cols-2">
+          <div className="relative hidden min-h-[650px] lg:block">
+            <img
+              src="https://i.ibb.co/jL0Scyy/banner3.png"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-teal-900/10" />
+            <div className="absolute bottom-10 left-10 right-10 text-white">
+              <p className="mb-2 text-sm font-bold uppercase tracking-widest text-teal-200">
+                Welcome to Paw
+              </p>
+              <h2 className="font-['Manrope'] text-4xl font-extrabold">
+                Good things start with a paw.
+              </h2>
             </div>
-        </>
-    );
+          </div>
+          <div className="p-7 sm:p-12">
+            <span className="paw-eyebrow">Member login</span>
+            <h1 className="paw-title">Welcome back.</h1>
+            <p className="mt-3 text-slate-500">
+              Sign in to continue your adoption journey.
+            </p>
+            <div className="mt-7">
+              <SocialLogin />
+            </div>
+            <div className="my-6 flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+              <span className="h-px flex-1 bg-slate-200" />
+              or continue with email
+              <span className="h-px flex-1 bg-slate-200" />
+            </div>
+            <form onSubmit={handle} className="space-y-4">
+              <label className="block">
+                <span className="mb-2 block text-sm font-bold text-slate-700">
+                  Email
+                </span>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-100"
+                />
+              </label>
+              <label className="block">
+                <span className="mb-2 block text-sm font-bold text-slate-700">
+                  Password
+                </span>
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-100"
+                />
+              </label>
+              {loginError && (
+                <p className="rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600">
+                  {loginError}
+                </p>
+              )}
+              <button className="paw-btn w-full">Login</button>
+            </form>
+            <p className="mt-6 text-center text-sm text-slate-500">
+              New here?{" "}
+              <Link className="font-bold text-teal-800" to="/signup">
+                Create an account
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
-
 export default Login;

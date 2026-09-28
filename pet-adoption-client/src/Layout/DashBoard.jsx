@@ -1,146 +1,248 @@
-import { NavLink, Outlet, useLoaderData, useNavigate } from "react-router-dom";
-import Navbar from "../Shared/Navbar/Navbar";
 import { Helmet } from "react-helmet-async";
+import {
+  FiBookOpen,
+  FiDollarSign,
+  FiHeart,
+  FiHome,
+  FiLogOut,
+  FiPlusCircle,
+  FiSend,
+  FiUsers,
+} from "react-icons/fi";
 import { MdAdminPanelSettings } from "react-icons/md";
-// import { useContext } from "react";
-// import { AuthContext } from "../Providers/AuthProvider";
-import UseAuthor from "../Hooks/UseAuthor";
-// import UseAdmin from "../Hooks/UseAdmin";
-// import UseAxiosSecure from "../Hooks/UseAxiosSecure";
-// import { useQuery } from "@tanstack/react-query";
+import { NavLink, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 
+import UseAuthor from "../Hooks/UseAuthor";
+import Navbar from "../Shared/Navbar/Navbar";
 
 const DashBoard = () => {
-    const { user, logOut } = UseAuthor();
-    const navigate = useNavigate();
-    const loadUser = useLoaderData([]);
-    // const [isAdmin] = UseAdmin();
-    // let isAdmin = true;
-    // console.log(loadUser.length);
-    // const axiosSecure = UseAxiosSecure();
-    // const { data: loginuser = [], refetch } = useQuery({
-    //     queryKey: ['loginuser'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get('/users');
-    //         return res.data;
-    //     }
-    // });
+  const { user, logOut } = UseAuthor();
+  const navigate = useNavigate();
+  const loadUser = useLoaderData([]);
 
-    const handleLogOut = () => {
-        logOut()
-            .then(() => {
-                console.log('logout user');
-                navigate('/');
-            })
-            .catch(error => console.log(error));
-    }
-    //////////////////////////////////
+  const currentUser = loadUser?.find((item) => item.email === user?.email);
 
-    // {
-    const logUser = loadUser.filter(myemail => myemail.email === user.email)
-    // if (logUser[0].role === 'ban') {
-    //     console.log("you are ban");
-    //     handleLogOut();
-    // }
-    console.log(logUser[0].role);
-    //////////////////////
+  const isAdmin = currentUser?.role === "admin";
 
-    return (
-        <>
-            <Helmet>
-                <title>Paw | Dashboard</title>
-            </Helmet>
-            <Navbar></Navbar>
-            <div className="flex">
-                <div className="mt-28 fixed  bg-slate-100 z-20  w-56 min-h-screen text-slate-900">
+  const handleLogOut = () => {
+    logOut()
+      .then(() => navigate("/"))
+      .catch((error) => console.log(error));
+  };
 
-                    <ul className=" grid grid-rows-12 text-base ">
-                        {
-                            logUser[0].role === "admin" ?
-                                <>
-                                    <li>
-                                        <NavLink to='/dashboard/addpet'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Add Pet</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mypets'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Pets</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mydonation'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Donation</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mycampaigns'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Campaigns</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/createcampaign'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Create Campaign</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/adoptionreq'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Adoption Request</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/createcourse'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Create Course</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mycourses'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Courses</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/enrolledcourses'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Enrolled Courses</button></NavLink>
-                                    </li>
-                                    <li className="border-b border-teal-800 flex justify-center items-center text-teal-950 text-2xl"><MdAdminPanelSettings></MdAdminPanelSettings></li>
-                                    <li>
-                                        <NavLink to='/dashboard/allusers'> <button className=" w-full py-1 border-b
-                            hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">All Users</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/allpets'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">All Pets</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/alldonation'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">All Donations</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/allcourses'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">All Courses</button></NavLink>
-                                    </li>
-                                </> : <>
-                                    <li>
-                                        <NavLink to='/dashboard/addpet'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Add Pet</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mypets'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Pets</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mydonation'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Donation</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mycampaigns'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Campaigns</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/createcampaign'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Create Campaign</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/adoptionreq'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Adoption Request</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/createcourse'><button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Create Course</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/mycourses'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">My Courses</button></NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/enrolledcourses'> <button className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Enrolled Courses</button></NavLink>
-                                    </li>
-                                </>
-                        }
-                        <li>
-                            <button onClick={handleLogOut} className=" w-full py-1 border-b hover:border-b-2 focus:border-r-4 border-teal-800 text-teal-700 font-bold">Log Out</button>
-                        </li>
-                    </ul>
-                </div>
-                <div className="flex-1 mt-28 rounded-3xl ml-56 p-8 min-h-screen bg-teal-50">
-                    <Outlet></Outlet>
-                </div>
+  const menuItems = [
+    {
+      label: "Add Pet",
+      to: "/dashboard/addpet",
+      icon: <FiPlusCircle />,
+    },
+    {
+      label: "My Pets",
+      to: "/dashboard/mypets",
+      icon: <FiHeart />,
+    },
+    {
+      label: "My Donations",
+      to: "/dashboard/mydonation",
+      icon: <FiDollarSign />,
+    },
+    {
+      label: "My Campaigns",
+      to: "/dashboard/mycampaigns",
+      icon: <FiSend />,
+    },
+    {
+      label: "Create Campaign",
+      to: "/dashboard/createcampaign",
+      icon: <FiPlusCircle />,
+    },
+    {
+      label: "Adoption Requests",
+      to: "/dashboard/adoptionreq",
+      icon: <FiHeart />,
+    },
+    {
+      label: "Create Course",
+      to: "/dashboard/createcourse",
+      icon: <FiBookOpen />,
+    },
+    {
+      label: "My Courses",
+      to: "/dashboard/mycourses",
+      icon: <FiBookOpen />,
+    },
+    {
+      label: "Enrolled Courses",
+      to: "/dashboard/enrolledcourses",
+      icon: <FiBookOpen />,
+    },
+  ];
+
+  const adminItems = [
+    {
+      label: "All Users",
+      to: "/dashboard/allusers",
+      icon: <FiUsers />,
+    },
+    {
+      label: "All Pets",
+      to: "/dashboard/allpets",
+      icon: <FiHeart />,
+    },
+    {
+      label: "All Donations",
+      to: "/dashboard/alldonation",
+      icon: <FiDollarSign />,
+    },
+    {
+      label: "All Courses",
+      to: "/dashboard/allcourses",
+      icon: <FiBookOpen />,
+    },
+  ];
+
+  const navItemClass = ({ isActive }) =>
+    `group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition ${
+      isActive
+        ? "bg-teal-600 text-white shadow-lg shadow-teal-600/20"
+        : "text-slate-500 hover:bg-teal-50 hover:text-teal-700"
+    }`;
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Helmet>
+        <title>Paw | Dashboard</title>
+      </Helmet>
+
+      <Navbar />
+
+      <div className="mx-auto flex max-w-[1600px]">
+        {/* Sidebar */}
+        <aside className="sticky top-[72px] hidden h-[calc(100vh-72px)] w-72 shrink-0 overflow-y-auto border-r border-slate-100 bg-white p-5 lg:block">
+          {/* Profile */}
+          <div className="mb-6 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-800 p-5 text-white">
+            <div className="flex items-center gap-3">
+              <div className="h-11 w-11 overflow-hidden rounded-full border-2 border-white/30 bg-white/10">
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || "User"}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center font-bold">
+                    {user?.displayName?.charAt(0)?.toUpperCase()}
+                  </div>
+                )}
+              </div>
+
+              <div className="min-w-0">
+                <p className="truncate font-bold">
+                  {user?.displayName || "User"}
+                </p>
+
+                <p className="truncate text-xs text-teal-100">
+                  {isAdmin ? "Administrator" : "Pet lover"}
+                </p>
+              </div>
             </div>
-            {/* <Footer></Footer> */}
-        </>
-    );
+          </div>
+
+          {/* Main */}
+          <div>
+            <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+              Workspace
+            </p>
+
+            <nav className="space-y-1">
+              {menuItems.map((item) => (
+                <NavLink key={item.to} to={item.to} className={navItemClass}>
+                  <span className="text-lg">{item.icon}</span>
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
+          </div>
+
+          {/* Admin */}
+          {isAdmin && (
+            <div className="mt-7 border-t border-slate-100 pt-6">
+              <div className="mb-3 flex items-center gap-2 px-3 text-slate-400">
+                <MdAdminPanelSettings className="text-lg" />
+
+                <p className="text-[11px] font-bold uppercase tracking-widest">
+                  Administration
+                </p>
+              </div>
+
+              <nav className="space-y-1">
+                {adminItems.map((item) => (
+                  <NavLink key={item.to} to={item.to} className={navItemClass}>
+                    <span className="text-lg">{item.icon}</span>
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
+          )}
+
+          {/* Logout */}
+          <button
+            onClick={handleLogOut}
+            className="mt-7 flex w-full items-center gap-3 rounded-xl border border-red-100 px-3 py-3 text-sm font-semibold text-red-500 transition hover:bg-red-50"
+          >
+            <FiLogOut />
+            Logout
+          </button>
+        </aside>
+
+        {/* Mobile sidebar / top nav */}
+        <div className="fixed bottom-4 left-1/2 z-40 flex w-[calc(100%-32px)] max-w-md -translate-x-1/2 items-center justify-around rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl backdrop-blur lg:hidden">
+          <NavLink
+            to="/dashboard"
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
+          >
+            <FiHome />
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/addpet"
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
+          >
+            <FiPlusCircle />
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/mypets"
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
+          >
+            <FiHeart />
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/mycourses"
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
+          >
+            <FiBookOpen />
+          </NavLink>
+
+          <button
+            onClick={handleLogOut}
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-red-500 hover:bg-red-50"
+          >
+            <FiLogOut />
+          </button>
+        </div>
+
+        {/* Main Content */}
+        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
+          <div className="min-h-[calc(100vh-120px)] rounded-3xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default DashBoard;
