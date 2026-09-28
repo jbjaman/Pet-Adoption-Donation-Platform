@@ -176,12 +176,12 @@ const MyCourses = () => {
                       <button
                         onClick={() => handleFinishedCourse(course)}
                         title="Finish course"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-teal-200 bg-teal-50 text-teal-700 transition hover:bg-teal-700 hover:text-white"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-teal-200 bg-teal-50 text-teal-700 transition hover:bg-teal-600 hover:text-white"
                       >
                         <FaUserGraduate />
                       </button>
                     ) : (
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal-600 text-slate-50">
                         <FaUserGraduate />
                       </span>
                     )}

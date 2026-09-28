@@ -171,7 +171,7 @@ const Login = () => {
               <SocialLogin />
 
               <p className="mt-7 text-center text-sm text-slate-500">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link
                   to="/signup"
                   className="font-bold text-teal-700 hover:underline"
