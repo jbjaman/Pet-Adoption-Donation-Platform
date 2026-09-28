@@ -14,25 +14,25 @@ const AllUsers = () => {
     },
   });
 
-  const handleMakeAdmin = (selectedUser) => {
+  const handleMakeAdmin = (user) => {
     Swal.fire({
-      title: "Make this user an admin?",
-      text: "The user will receive admin privileges.",
+      title: "Are you sure?",
+      text: "Make this user Admin",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#0f766e",
-      cancelButtonColor: "#dc2626",
-      confirmButtonText: "Yes, Make Admin",
+      confirmButtonColor: "#008080",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/users/admin/${selectedUser._id}`).then((res) => {
+        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             refetch();
 
             Swal.fire({
               position: "top-end",
               icon: "success",
-              title: `${selectedUser.name} is an admin now`,
+              title: `${user.name} is admin now`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -42,25 +42,25 @@ const AllUsers = () => {
     });
   };
 
-  const handleBanUser = (selectedUser) => {
+  const handleBanUser = (user) => {
     Swal.fire({
-      title: "Ban this user?",
-      text: "This user will be marked as banned.",
+      title: "Are you sure?",
+      text: "Ban this user",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#dc2626",
-      cancelButtonColor: "#64748b",
-      confirmButtonText: "Yes, Ban User",
+      confirmButtonColor: "#008080",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/users/${selectedUser._id}`).then((res) => {
+        axiosSecure.patch(`/users/${user._id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             refetch();
 
             Swal.fire({
               position: "top-end",
               icon: "success",
-              title: `You banned ${selectedUser.name}`,
+              title: `You Banned ${user.name}`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -71,52 +71,63 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="w-full">
+    <section className="space-y-6">
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-teal-700">
+          <p className="text-xs font-bold uppercase tracking-wider text-teal-700">
             Administration
           </p>
 
-          <h2 className="mt-2 text-2xl font-bold text-slate-800 sm:text-3xl">
+          <h1 className="mt-1 text-2xl font-extrabold text-slate-800">
             All Users
-          </h2>
+          </h1>
 
           <p className="mt-1 text-sm text-slate-500">
             Manage user roles and account access.
           </p>
         </div>
 
-        <div className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
-          {user.length} {user.length === 1 ? "User" : "Users"}
+        <div className="w-fit rounded-xl bg-teal-50 px-4 py-3">
+          <p className="text-xs font-semibold text-teal-700">Total Users</p>
+          <p className="text-2xl font-extrabold text-teal-900">{user.length}</p>
         </div>
       </div>
 
-      {/* Desktop */}
-      <div className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm md:block">
+      {/* Table */}
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[750px] text-left">
-            <thead className="bg-slate-50">
-              <tr className="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500">
-                <th className="px-5 py-4">#</th>
-                <th className="px-5 py-4">User</th>
-                <th className="px-5 py-4">Email</th>
-                <th className="px-5 py-4">Role</th>
-                <th className="px-5 py-4">Account</th>
+          <table className="w-full min-w-[760px] text-left">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  #
+                </th>
+                <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  User
+                </th>
+                <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Email
+                </th>
+                <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Role
+                </th>
+                <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-slate-100">
               {user.map((item, index) => (
-                <tr key={item._id} className="transition hover:bg-slate-50">
-                  <td className="px-5 py-4 font-semibold text-slate-400">
+                <tr key={item._id} className="transition hover:bg-slate-50/70">
+                  <td className="px-5 py-4 text-sm font-semibold text-slate-400">
                     {String(index + 1).padStart(2, "0")}
                   </td>
 
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-11 w-11 overflow-hidden rounded-full bg-slate-100 ring-1 ring-slate-200">
+                      <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-slate-100">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -124,9 +135,10 @@ const AllUsers = () => {
                         />
                       </div>
 
-                      <p className="font-semibold text-slate-800">
-                        {item.name}
-                      </p>
+                      <div>
+                        <p className="font-bold text-slate-800">{item.name}</p>
+                        <p className="text-xs text-slate-400">Paw member</p>
+                      </div>
                     </div>
                   </td>
 
@@ -140,32 +152,48 @@ const AllUsers = () => {
                         <FaUserShield />
                         Admin
                       </span>
-                    ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(item)}
-                        className="inline-flex items-center gap-2 rounded-xl border border-teal-200 bg-white px-3 py-2 text-xs font-semibold text-teal-700 transition hover:bg-teal-700 hover:text-white"
-                      >
-                        <FaUserGear />
-                        Make Admin
-                      </button>
-                    )}
-                  </td>
-
-                  <td className="px-5 py-4">
-                    {item.role === "ban" ? (
+                    ) : item.role === "ban" ? (
                       <span className="inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600">
                         <FaUserSlash />
                         Banned
                       </span>
                     ) : (
-                      <button
-                        onClick={() => handleBanUser(item)}
-                        className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white"
-                      >
-                        <FaUserSlash />
-                        Ban User
-                      </button>
+                      <span className="inline-flex rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
+                        User
+                      </span>
                     )}
+                  </td>
+
+                  <td className="px-5 py-4">
+                    <div className="flex justify-end gap-2">
+                      {item.role === "admin" ? (
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-600 text-slate-50">
+                          <FaUserShield />
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleMakeAdmin(item)}
+                          title="Make Admin"
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-teal-200 text-teal-700 transition hover:bg-teal-600 hover:text-white"
+                        >
+                          <FaUserGear />
+                        </button>
+                      )}
+
+                      {item.role === "ban" ? (
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500 text-slate-50">
+                          <FaUserSlash />
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleBanUser(item)}
+                          title="Ban User"
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 text-red-500 transition hover:bg-red-500 hover:text-white"
+                        >
+                          <FaUserSlash />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -175,91 +203,14 @@ const AllUsers = () => {
 
         {user.length === 0 && (
           <div className="px-6 py-16 text-center">
-            <p className="font-semibold text-slate-700">No users found</p>
+            <p className="font-bold text-slate-700">No users found</p>
+            <p className="mt-1 text-sm text-slate-400">
+              There are currently no users to display.
+            </p>
           </div>
         )}
       </div>
-
-      {/* Mobile */}
-      <div className="space-y-4 md:hidden">
-        {user.map((item, index) => (
-          <div
-            key={item._id}
-            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-          >
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-slate-100">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-bold text-slate-800">{item.name}</p>
-
-                    <p className="mt-1 truncate text-sm text-slate-500">
-                      {item.email}
-                    </p>
-                  </div>
-
-                  <span className="text-xs font-semibold text-slate-400">
-                    #{index + 1}
-                  </span>
-                </div>
-
-                <div className="mt-3">
-                  {item.role === "admin" ? (
-                    <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-700">
-                      <FaUserShield />
-                      Admin
-                    </span>
-                  ) : item.role === "ban" ? (
-                    <span className="inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600">
-                      <FaUserSlash />
-                      Banned
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">
-                      User
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
-              {item.role !== "admin" && item.role !== "ban" ? (
-                <button
-                  onClick={() => handleMakeAdmin(item)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-3 py-2.5 text-xs font-semibold text-white"
-                >
-                  <FaUserGear />
-                  Make Admin
-                </button>
-              ) : (
-                <div />
-              )}
-
-              {item.role !== "ban" ? (
-                <button
-                  onClick={() => handleBanUser(item)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-red-50 px-3 py-2.5 text-xs font-semibold text-red-600"
-                >
-                  <FaUserSlash />
-                  Ban User
-                </button>
-              ) : (
-                <div />
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 

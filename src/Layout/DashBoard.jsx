@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  FiBookOpen,
-  FiDollarSign,
-  FiHeart,
-  FiHome,
-  FiLogOut,
-  FiPlusCircle,
-  FiSend,
-  FiUsers,
-} from "react-icons/fi";
-import { MdAdminPanelSettings } from "react-icons/md";
+  FaBookOpen,
+  FaBullhorn,
+  FaClipboardList,
+  FaDonate,
+  FaGraduationCap,
+  FaUsers,
+} from "react-icons/fa";
+import { FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { MdAdminPanelSettings, MdOutlinePets, MdPets } from "react-icons/md";
 import { NavLink, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 
 import UseAuthor from "../Hooks/UseAuthor";
@@ -18,230 +18,218 @@ import Navbar from "../Shared/Navbar/Navbar";
 const DashBoard = () => {
   const { user, logOut } = UseAuthor();
   const navigate = useNavigate();
-  const loadUser = useLoaderData([]);
-
-  const currentUser = loadUser?.find((item) => item.email === user?.email);
-
-  const isAdmin = currentUser?.role === "admin";
+  const loadUser = useLoaderData();
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const handleLogOut = () => {
     logOut()
-      .then(() => navigate("/"))
+      .then(() => {
+        navigate("/");
+      })
       .catch((error) => console.log(error));
   };
 
-  const menuItems = [
+  const logUser = loadUser.filter((myemail) => myemail.email === user.email);
+
+  const isAdmin = logUser[0]?.role === "admin";
+
+  const mainMenu = [
     {
-      label: "Add Pet",
       to: "/dashboard/addpet",
-      icon: <FiPlusCircle />,
+      label: "Add Pet",
+      icon: <MdPets />,
     },
     {
-      label: "My Pets",
       to: "/dashboard/mypets",
-      icon: <FiHeart />,
+      label: "My Pets",
+      icon: <MdOutlinePets />,
     },
     {
-      label: "My Donations",
       to: "/dashboard/mydonation",
-      icon: <FiDollarSign />,
+      label: "My Donation",
+      icon: <FaDonate />,
     },
     {
-      label: "My Campaigns",
       to: "/dashboard/mycampaigns",
-      icon: <FiSend />,
+      label: "My Campaigns",
+      icon: <FaBullhorn />,
     },
     {
-      label: "Create Campaign",
       to: "/dashboard/createcampaign",
-      icon: <FiPlusCircle />,
+      label: "Create Campaign",
+      icon: <FaClipboardList />,
     },
     {
-      label: "Adoption Requests",
       to: "/dashboard/adoptionreq",
-      icon: <FiHeart />,
+      label: "Adoption Request",
+      icon: <FaClipboardList />,
     },
     {
-      label: "Create Course",
       to: "/dashboard/createcourse",
-      icon: <FiBookOpen />,
+      label: "Create Course",
+      icon: <FaGraduationCap />,
     },
     {
-      label: "My Courses",
       to: "/dashboard/mycourses",
-      icon: <FiBookOpen />,
+      label: "My Courses",
+      icon: <FaBookOpen />,
     },
     {
-      label: "Enrolled Courses",
       to: "/dashboard/enrolledcourses",
-      icon: <FiBookOpen />,
+      label: "Enrolled Courses",
+      icon: <FaGraduationCap />,
     },
   ];
 
-  const adminItems = [
+  const adminMenu = [
     {
-      label: "All Users",
       to: "/dashboard/allusers",
-      icon: <FiUsers />,
+      label: "All Users",
+      icon: <FaUsers />,
     },
     {
-      label: "All Pets",
       to: "/dashboard/allpets",
-      icon: <FiHeart />,
+      label: "All Pets",
+      icon: <MdPets />,
     },
     {
-      label: "All Donations",
       to: "/dashboard/alldonation",
-      icon: <FiDollarSign />,
+      label: "All Donations",
+      icon: <FaDonate />,
     },
     {
-      label: "All Courses",
       to: "/dashboard/allcourses",
-      icon: <FiBookOpen />,
+      label: "All Courses",
+      icon: <FaBookOpen />,
     },
   ];
 
-  const navItemClass = ({ isActive }) =>
-    `group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition ${
-      isActive
-        ? "bg-teal-600 text-white shadow-lg shadow-teal-600/20"
-        : "text-slate-500 hover:bg-teal-50 hover:text-teal-700"
-    }`;
+  const MenuItem = ({ item }) => (
+    <NavLink
+      to={item.to}
+      onClick={() => setMobileMenu(false)}
+      className={({ isActive }) =>
+        `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${
+          isActive
+            ? "bg-teal-700 text-white shadow-sm"
+            : "text-slate-600 hover:bg-teal-50 hover:text-teal-700"
+        }`
+      }
+    >
+      <span className="text-lg">{item.icon}</span>
+      <span>{item.label}</span>
+    </NavLink>
+  );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <>
       <Helmet>
         <title>Paw | Dashboard</title>
       </Helmet>
 
       <Navbar />
 
-      <div className="mx-auto flex max-w-[1600px]">
-        {/* Sidebar */}
-        <aside className="sticky top-[72px] hidden h-[calc(100vh-72px)] w-72 shrink-0 overflow-y-auto border-r border-slate-100 bg-white p-5 lg:block">
-          {/* Profile */}
-          <div className="mb-6 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-800 p-5 text-white">
-            <div className="flex items-center gap-3">
-              <div className="h-11 w-11 overflow-hidden rounded-full border-2 border-white/30 bg-white/10">
-                {user?.photoURL ? (
-                  <img
-                    src={user.photoURL}
-                    alt={user.displayName || "User"}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center font-bold">
-                    {user?.displayName?.charAt(0)?.toUpperCase()}
-                  </div>
-                )}
-              </div>
+      <div className="min-h-screen bg-slate-50 pt-[76px]">
+        {/* Mobile dashboard menu */}
+        <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+          <button
+            onClick={() => setMobileMenu(!mobileMenu)}
+            className="flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700"
+          >
+            <span className="flex items-center gap-2">
+              <FiMenu />
+              Dashboard Menu
+            </span>
 
-              <div className="min-w-0">
-                <p className="truncate font-bold">
-                  {user?.displayName || "User"}
-                </p>
+            {mobileMenu ? <FiX /> : null}
+          </button>
 
-                <p className="truncate text-xs text-teal-100">
-                  {isAdmin ? "Administrator" : "Pet lover"}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Main */}
-          <div>
-            <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-              Workspace
-            </p>
-
-            <nav className="space-y-1">
-              {menuItems.map((item) => (
-                <NavLink key={item.to} to={item.to} className={navItemClass}>
-                  <span className="text-lg">{item.icon}</span>
-                  {item.label}
-                </NavLink>
+          {mobileMenu && (
+            <div className="mt-3 space-y-1">
+              {mainMenu.map((item) => (
+                <MenuItem key={item.to} item={item} />
               ))}
-            </nav>
-          </div>
 
-          {/* Admin */}
-          {isAdmin && (
-            <div className="mt-7 border-t border-slate-100 pt-6">
-              <div className="mb-3 flex items-center gap-2 px-3 text-slate-400">
-                <MdAdminPanelSettings className="text-lg" />
+              {isAdmin && (
+                <>
+                  <div className="my-3 flex items-center gap-3 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <MdAdminPanelSettings className="text-lg" />
+                    Administration
+                  </div>
 
-                <p className="text-[11px] font-bold uppercase tracking-widest">
-                  Administration
-                </p>
-              </div>
+                  {adminMenu.map((item) => (
+                    <MenuItem key={item.to} item={item} />
+                  ))}
+                </>
+              )}
 
-              <nav className="space-y-1">
-                {adminItems.map((item) => (
-                  <NavLink key={item.to} to={item.to} className={navItemClass}>
-                    <span className="text-lg">{item.icon}</span>
-                    {item.label}
-                  </NavLink>
-                ))}
-              </nav>
+              <button
+                onClick={handleLogOut}
+                className="mt-3 flex w-full items-center gap-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600"
+              >
+                <FiLogOut />
+                Logout
+              </button>
             </div>
           )}
-
-          {/* Logout */}
-          <button
-            onClick={handleLogOut}
-            className="mt-7 flex w-full items-center gap-3 rounded-xl border border-red-100 px-3 py-3 text-sm font-semibold text-red-500 transition hover:bg-red-50"
-          >
-            <FiLogOut />
-            Logout
-          </button>
-        </aside>
-
-        {/* Mobile sidebar / top nav */}
-        <div className="fixed bottom-4 left-1/2 z-40 flex w-[calc(100%-32px)] max-w-md -translate-x-1/2 items-center justify-around rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl backdrop-blur lg:hidden">
-          <NavLink
-            to="/dashboard"
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
-          >
-            <FiHome />
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/addpet"
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
-          >
-            <FiPlusCircle />
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/mypets"
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
-          >
-            <FiHeart />
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/mycourses"
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-500 hover:bg-teal-50 hover:text-teal-700"
-          >
-            <FiBookOpen />
-          </NavLink>
-
-          <button
-            onClick={handleLogOut}
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-red-500 hover:bg-red-50"
-          >
-            <FiLogOut />
-          </button>
         </div>
 
-        {/* Main Content */}
-        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="min-h-[calc(100vh-120px)] rounded-3xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
+        <div className="mx-auto flex max-w-[1600px]">
+          {/* Desktop sidebar */}
+          <aside className="sticky top-[76px] hidden h-[calc(100vh-76px)] w-64 shrink-0 overflow-y-auto border-r border-slate-200 bg-white p-4 lg:block">
+            <div className="mb-6 rounded-2xl bg-gradient-to-br from-teal-700 to-teal-900 p-5 text-white">
+              <p className="text-xs font-semibold uppercase tracking-wider text-teal-100">
+                Dashboard
+              </p>
+
+              <p className="mt-2 truncate text-lg font-bold">
+                {user.displayName}
+              </p>
+
+              <p className="mt-1 truncate text-xs text-teal-100">
+                {user.email}
+              </p>
+            </div>
+
+            <nav className="space-y-1">
+              {mainMenu.map((item) => (
+                <MenuItem key={item.to} item={item} />
+              ))}
+            </nav>
+
+            {isAdmin && (
+              <>
+                <div className="my-5 border-t border-slate-100 pt-5">
+                  <div className="mb-2 flex items-center gap-2 px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <MdAdminPanelSettings className="text-lg" />
+                    Administration
+                  </div>
+
+                  <div className="space-y-1">
+                    {adminMenu.map((item) => (
+                      <MenuItem key={item.to} item={item} />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            <button
+              onClick={handleLogOut}
+              className="mt-6 flex w-full items-center gap-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600 transition hover:bg-red-600 hover:text-white"
+            >
+              <FiLogOut />
+              Logout
+            </button>
+          </aside>
+
+          {/* Main dashboard content */}
+          <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
             <Outlet />
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

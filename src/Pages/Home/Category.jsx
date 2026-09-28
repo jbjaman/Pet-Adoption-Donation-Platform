@@ -1,57 +1,88 @@
-import { TbDog } from "react-icons/tb";
-import { LuCat } from "react-icons/lu";
 import { GiRabbitHead } from "react-icons/gi";
+import { LuCat } from "react-icons/lu";
+import { TbDog } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 
 const Category = () => {
-    return (
-        <div className="bg-gradient-to-b from-slate-100 to-teal-50 mx-8 rounded-3xl p-10">
-            <div className="grid grid-cols-4">
-                <div className="col-span-3">
-                    <p className="text-4xl text-slate-800 font-bold py-5">Find Your Pets</p>
-                    <hr className="w-1/6 border-2 border-teal-900" />
-                    <p className="text-6xl text-teal-950 pt-5 font-extrabold">1k+ Pets Available For Adoption Near You</p>
-                </div>
-                <p className="text-2xl font-bold hover:font-extrabold text-teal-800 self-end"><NavLink to="/petlist"> See More &gt;</NavLink></p>
-            </div>
-            <div className="grid grid-cols-3 my-8 gap-5">
-                <div className="relative shadow-lg shadow-slate-500 rounded-3xl">
-                    <img className="rounded-3xl" src="https://i.ibb.co/NjgMrZs/card1.png" alt="" />
-                    <div className="absolute bottom-0 text-slate-800 bg-teal-50 w-full rounded-3xl grid justify-center text-center rounded-t-full py-3">
-                        <p className="text-3xl font-extrabold text-teal-900">Bruce</p>
-                        <p className="font-bold">3 years</p>
-                    </div>
-                    <div className="absolute top-0 right-0 rounded-3xl">
-                        <button className=" border-b-2 border-l-2 border-teal-800 hover:border-4  rounded-3xl text-5xl text-slate-800 p-1"><TbDog></TbDog></button>
-                    </div>
-                </div>
-                <div>
-                    <div className="relative shadow-lg shadow-slate-500 rounded-3xl">
-                        <img className="rounded-3xl" src="https://i.ibb.co/wQh0FQh/chole.png" alt="" />
-                        <div className="absolute bottom-0 text-slate-800 bg-teal-50 w-full rounded-3xl grid justify-center text-center rounded-t-full py-3">
-                            <p className="text-3xl font-extrabold text-teal-900">Chole</p>
-                            <p className="font-bold">2 Years</p>
-                        </div>
-                        <div className="absolute top-0 right-0 rounded-3xl">
-                            <button className="hover:border-4 border-b-2 border-l-2 border-teal-800  rounded-3xl text-5xl p-1"><LuCat></LuCat></button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="relative shadow-lg shadow-slate-500 rounded-3xl">
-                        <img className="rounded-3xl" src="https://i.ibb.co/HxVskCG/card3.png" alt="" />
-                        <div className="absolute bottom-0 text-slate-800 bg-teal-50 w-full rounded-3xl rounded-t-full grid justify-center py-3 text-center">
-                            <p className="text-3xl font-extrabold text-teal-900">Bella</p>
-                            <p className="font-bold">2 Years</p>
-                        </div>
-                        <div className="absolute top-0 right-0 rounded-3xl">
-                            <button className=" border-b-2 border-l-2 border-teal-800 hover:border-4  rounded-3xl text-5xl text-slate-800 p-1 "><GiRabbitHead></GiRabbitHead></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const pets = [
+    {
+      name: "Bruce",
+      age: "3 years",
+      image: "https://i.ibb.co/NjgMrZs/card1.png",
+      icon: <TbDog />,
+    },
+    {
+      name: "Tom",
+      age: "3 years",
+      image: "https://i.ibb.co.com/NNFfBNY/tom.png",
+      icon: <LuCat />,
+    },
+    {
+      name: "Bella",
+      age: "2 years",
+      image: "https://i.ibb.co/HxVskCG/card3.png",
+      icon: <GiRabbitHead />,
+    },
+  ];
+
+  return (
+    <section className="mx-4 rounded-3xl bg-gradient-to-b from-slate-100 to-teal-50 p-5 sm:mx-6 sm:p-8 lg:mx-auto lg:max-w-7xl lg:p-10">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-bold uppercase tracking-wider text-teal-700">
+            Find Your Companion
+          </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold leading-tight text-teal-950 sm:text-4xl lg:text-5xl">
+            Pets Available
+            <br className="hidden sm:block" />
+            For Adoption
+          </h2>
+
+          <div className="mt-4 h-1 w-20 rounded-full bg-teal-700" />
         </div>
-    );
+
+        <NavLink
+          to="/petlist"
+          className="inline-flex w-fit items-center rounded-xl border border-teal-700 px-5 py-3 text-sm font-bold text-teal-700 transition hover:bg-teal-700 hover:text-white"
+        >
+          See More
+          <span className="ml-2">→</span>
+        </NavLink>
+      </div>
+
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
+        {pets.map((pet) => (
+          <div
+            key={pet.name}
+            className="group relative overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+          >
+            <div className="relative aspect-[4/4.5] overflow-hidden">
+              <img
+                src={pet.image}
+                alt={pet.name}
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/75 to-transparent p-5 pt-20">
+                <h3 className="text-2xl font-extrabold text-white">
+                  {pet.name}
+                </h3>
+
+                <p className="mt-1 text-sm font-semibold text-slate-200">
+                  {pet.age}
+                </p>
+              </div>
+
+              <div className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 text-2xl text-teal-800 shadow-md backdrop-blur-sm">
+                {pet.icon}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default Category;

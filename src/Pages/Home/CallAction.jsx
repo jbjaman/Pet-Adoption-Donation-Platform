@@ -1,28 +1,66 @@
 import { NavLink } from "react-router-dom";
 
-
 const CallAction = () => {
-    return (
-        <div className="mx-8 grid grid-cols-5 mb-10">
-            <div className="col-span-3 grid grid-rows-2 grid-flow-col gap-5">
-                <div className=" row-span-2 ">
-                    <img className="rounded-3xl" src="https://i.ibb.co/LR7YKNr/petad1.png" alt="1" />
-                </div>
-                <div className="row-span-1">
-                    <img className="rounded-3xl" src="https://i.ibb.co/fX5yJk7/petad2.png" alt="2" />
-                </div>
-                <div className="row-span-1">
-                    <img className="rounded-3xl" src="https://i.ibb.co/yscLhXm/petad3.png" alt="3" />
-                </div>
-            </div>
-            <div className="col-span-2 ml-3 pt-5 px-10 grid">
-                <hr className="w-1/3 border-2 border-teal-900" />
-                <p className="text-6xl pt-5 text-teal-950 font-extrabold">Planning to Adopt a Pet ?</p>
-                <p className="text-2xl py-5 font-semibold text-slate-800">Dogs make for the best friends, and it&apos;s only right that we celebrate them for all the joy and love they&apos;ve given us. Whether labled on dog bandana.</p>
-                <p className="text-2xl font-bold hover:font-extrabold text-teal-800"><NavLink to="/petlist">How it Works &gt; </NavLink></p>
-            </div>
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="grid gap-10 lg:grid-cols-5 lg:items-center">
+        <div className="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+          <div className="sm:row-span-2">
+            <img
+              className="h-full min-h-[260px] w-full rounded-3xl object-cover shadow-md transition duration-300 hover:scale-[1.01]"
+              src="https://i.ibb.co/LR7YKNr/petad1.png"
+              alt="Pet adoption"
+            />
+          </div>
+
+          <div>
+            <img
+              className="h-full min-h-[180px] w-full rounded-3xl object-cover shadow-md"
+              src="https://i.ibb.co/fX5yJk7/petad2.png"
+              alt="Pet care"
+            />
+          </div>
+
+          <div>
+            <img
+              className="h-full min-h-[180px] w-full rounded-3xl object-cover shadow-md"
+              src="https://i.ibb.co/yscLhXm/petad3.png"
+              alt="Happy pet"
+            />
+          </div>
         </div>
-    );
+
+        <div className="lg:col-span-2">
+          <div className="mb-5 h-1 w-20 rounded-full bg-teal-700" />
+
+          <p className="text-sm font-bold uppercase tracking-wider text-teal-700">
+            Pet Adoption
+          </p>
+
+          <h2 className="mt-3 text-4xl font-extrabold leading-tight text-teal-950 sm:text-5xl">
+            Planning to
+            <br />
+            Adopt a Pet?
+          </h2>
+
+          <p className="mt-5 text-base leading-7 text-slate-600">
+            Dogs make for the best friends, and it&apos;s only right that we
+            celebrate them for all the joy and love they&apos;ve given us.
+            Whether you are looking for a playful companion or a calm friend, we
+            can help you find the right match.
+          </p>
+
+          <NavLink
+            to="/petlist"
+            className="mt-7 inline-flex items-center rounded-xl bg-teal-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-teal-800"
+          >
+            How it Works
+            <span className="ml-2">→</span>
+          </NavLink>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default CallAction;

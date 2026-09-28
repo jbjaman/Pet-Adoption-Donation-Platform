@@ -1,98 +1,56 @@
-// const PetFoodExtra = () => {
-//     return (
-//         <div className="mx-8 grid grid-cols-6 mb-10">
-//             <div className="col-span-3 grid grid-cols-3 gap-5 pt-8">
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/61ft2RS/food1.png" alt="1" />
-//                 </div>
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/zrP0BBb/food2.png" alt="2" />
-//                 </div>
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/n82MCtG/food3.png" alt="3" />
-//                 </div>
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/HHMspBS/food4.png" alt="4" />
-//                 </div>
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/VY3nfN6/food5.png" alt="5" />
-//                 </div>
-//                 <div className="">
-//                     <img className="rounded-3xl" src="https://i.ibb.co/25hDf4v/food6.png" alt="6" />
-//                 </div>
-//             </div>
-//             <div className="col-span-3 ml-3 pt-5 px-8">
-//                 <p className="text-4xl text-slate-800 font-bold py-5">Pets Food</p>
-//                 <hr className="w-1/4 border-2 border-teal-900" />
-//                 <p className="text-6xl text-teal-950 font-extrabold py-5">Save an Extra 10% on Every Product Order</p>
-//                 <p className="text-2xl font-bold hover:font-extrabold text-teal-800">Buy Now &gt; </p>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default PetFoodExtra;
-
-//--------------------------------------------->
-
 const PetFoodExtra = () => {
+  const foodImages = [
+    "https://i.ibb.co/61ft2RS/food1.png",
+    "https://i.ibb.co/zrP0BBb/food2.png",
+    "https://i.ibb.co/n82MCtG/food3.png",
+    "https://i.ibb.co/HHMspBS/food4.png",
+    "https://i.ibb.co/VY3nfN6/food5.png",
+    "https://i.ibb.co/25hDf4v/food6.png",
+  ];
+
   return (
-    <div className="mx-8 grid grid-cols-6 mb-10">
-      <div className="col-span-3 grid grid-cols-3 gap-5 pt-8">
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/61ft2RS/food1.png"
-            alt="1"
-          />
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {foodImages.map((image, index) => (
+            <div
+              key={image}
+              className="overflow-hidden rounded-2xl bg-white shadow-sm"
+            >
+              <img
+                className="aspect-square h-full w-full object-cover transition duration-500 hover:scale-105"
+                src={image}
+                alt={`Pet food ${index + 1}`}
+              />
+            </div>
+          ))}
         </div>
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/zrP0BBb/food2.png"
-            alt="2"
-          />
-        </div>
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/n82MCtG/food3.png"
-            alt="3"
-          />
-        </div>
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/HHMspBS/food4.png"
-            alt="4"
-          />
-        </div>
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/VY3nfN6/food5.png"
-            alt="5"
-          />
-        </div>
-        <div className="">
-          <img
-            className="rounded-3xl"
-            src="https://i.ibb.co/25hDf4v/food6.png"
-            alt="6"
-          />
+
+        <div>
+          <p className="text-sm font-bold uppercase tracking-wider text-teal-700">
+            Pet Essentials
+          </p>
+
+          <h2 className="mt-3 text-4xl font-extrabold leading-tight text-teal-950 sm:text-5xl">
+            Save an Extra 10%
+            <br />
+            on Every Product Order
+          </h2>
+
+          <div className="mt-5 h-1 w-20 rounded-full bg-teal-700" />
+
+          <p className="mt-5 max-w-xl text-base leading-7 text-slate-600">
+            Give your pets the care they deserve with quality food and everyday
+            essentials designed to keep them happy and healthy.
+          </p>
+
+          <button className="mt-7 inline-flex items-center rounded-xl bg-teal-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-teal-800">
+            Buy Now
+            <span className="ml-2">→</span>
+          </button>
         </div>
       </div>
-      <div className="col-span-3 ml-3 pt-5 px-8">
-        <p className="text-4xl text-slate-800 font-bold py-5">Pets Food</p>
-        <hr className="w-1/4 border-2 border-teal-900" />
-        <p className="text-6xl text-teal-950 font-extrabold py-5">
-          Save an Extra 10% on Every Product Order
-        </p>
-        <p className="text-2xl font-bold hover:font-extrabold text-teal-800">
-          Buy Now &gt;{" "}
-        </p>
-      </div>
-    </div>
+    </section>
   );
 };
 

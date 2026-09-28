@@ -1,192 +1,97 @@
-// import { NavLink } from "react-router-dom";
-// import { FaUserGraduate } from "react-icons/fa";
-
-// const Education = () => {
-//     return (
-//         <div className="bg-teal-50 mx-8 rounded-3xl p-10">
-//             <div className="grid grid-cols-4">
-//                 <div className="col-span-3">
-//                     {/* <p className="text-4xl text-slate-800 font-bold py-5">Share The Love</p> */}
-//                     <hr className="w-1/6 border-2 border-teal-900" />
-//                     <p className="text-6xl text-teal-950 pt-9 font-extrabold">The Ultimate <br />Workshop Series !</p>
-//                 </div>
-//                 <p className="text-2xl font-bold hover:font-extrabold text-teal-800 self-end"><NavLink to="/education">Learn From the Best &gt;</NavLink></p>
-//             </div>
-//             <div className="grid grid-cols-2 mt-10 gap-5">
-//                 <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-//                     <div>
-//                         <img className="rounded-l-3xl" src="https://i.ibb.co/C0YxQ6Q/edu4.png" alt="" />
-//                     </div>
-//                     <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-//                         <p className="text-2xl font-extrabold ">Paws & Learn</p>
-//                         <p className="font-bold my-2">Engaging and informative initiative designed to valuable knowledge about responsible pet ownership.</p>
-//                         <div>
-//                             <NavLink to="/education"> <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2"><FaUserGraduate></FaUserGraduate></button></NavLink>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-//                     <div>
-//                         <img className="rounded-l-3xl" src="https://i.ibb.co/LJGFjHW/edu3.png" alt="" />
-//                     </div>
-//                     <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-//                         <p className="text-2xl font-extrabold ">Adopt & Thrive</p>
-//                         <p className="font-bold my-2">Where insightful workshops guide you towards journey with your newly adopted pet.</p>
-//                         <div>
-//                             <NavLink to="/education"><button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2"><FaUserGraduate></FaUserGraduate></button></NavLink>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-//                     <div>
-//                         <img className="rounded-l-3xl" src="https://i.ibb.co/VYyXtgb/education2.png" alt="" />
-//                     </div>
-//                     <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-//                         <p className="text-2xl font-extrabold ">Training Tails</p>
-//                         <p className="font-bold my-2">Elevate your bond with your adopted pet through expert-led workshops.</p>
-//                         <div>
-//                             <NavLink to="/education"> <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2"><FaUserGraduate></FaUserGraduate></button></NavLink>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-//                     <div>
-//                         <img className="rounded-l-3xl" src="https://i.ibb.co/VqbNbN4/petedu4.png" alt="" />
-//                     </div>
-//                     <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-//                         <p className="text-2xl font-extrabold ">Pet Care 101</p>
-//                         <p className="font-bold my-2">Ensuring every owner is equipped with the knowledge to a lifetime of joy with their furry friends</p>
-//                         <div>
-//                             <NavLink to="/education"> <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2"><FaUserGraduate></FaUserGraduate></button></NavLink>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Education;
-
-// ---------------------------------------->
-
 import { FaUserGraduate } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Education = () => {
+  const workshops = [
+    {
+      title: "Paws & Learn",
+      image: "https://i.ibb.co/C0YxQ6Q/edu4.png",
+      description:
+        "Engaging and informative workshops about responsible pet ownership.",
+    },
+    {
+      title: "Adopt & Thrive",
+      image: "https://i.ibb.co/LJGFjHW/edu3.png",
+      description:
+        "Insightful workshops to guide you through life with your newly adopted pet.",
+    },
+    {
+      title: "Training Tails",
+      image: "https://i.ibb.co/VYyXtgb/education2.png",
+      description:
+        "Elevate your bond with your adopted pet through expert-led workshops.",
+    },
+    {
+      title: "Pet Care 101",
+      image: "https://i.ibb.co/VqbNbN4/petedu4.png",
+      description:
+        "Learn the essential knowledge needed for a lifetime of joy with your furry friends.",
+    },
+  ];
+
   return (
-    <div className="bg-teal-50 mx-8 rounded-3xl p-10">
-      <div className="grid grid-cols-4">
-        <div className="col-span-3">
-          {/* <p className="text-4xl text-slate-800 font-bold py-5">Share The Love</p> */}
-          <hr className="w-1/6 border-2 border-teal-900" />
-          <p className="text-6xl text-teal-950 pt-9 font-extrabold">
-            The Ultimate <br />
-            Workshop Series !
+    <section className="mx-4 mb-12 rounded-3xl bg-teal-50 p-5 sm:mx-6 sm:p-8 lg:mx-auto lg:mb-16 lg:max-w-7xl lg:p-10">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-bold uppercase tracking-wider text-teal-700">
+            Learn & Grow
           </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold leading-tight text-teal-950 sm:text-4xl lg:text-5xl">
+            The Ultimate
+            <br />
+            Workshop Series
+          </h2>
+
+          <div className="mt-4 h-1 w-20 rounded-full bg-teal-700" />
         </div>
-        <p className="text-2xl font-bold hover:font-extrabold text-teal-800 self-end">
-          <NavLink to="/education">Learn From the Best &gt;</NavLink>
-        </p>
+
+        <NavLink
+          to="/education"
+          className="inline-flex w-fit items-center rounded-xl border border-teal-700 px-5 py-3 text-sm font-bold text-teal-700 transition hover:bg-teal-700 hover:text-white"
+        >
+          Learn From the Best
+          <span className="ml-2">→</span>
+        </NavLink>
       </div>
-      <div className="grid grid-cols-2 mt-10 gap-5">
-        <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-          <div>
-            <img
-              className="rounded-l-3xl"
-              src="https://i.ibb.co/C0YxQ6Q/edu4.png"
-              alt=""
-            />
-          </div>
-          <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-            <p className="text-2xl font-extrabold ">Paws & Learn</p>
-            <p className="font-bold my-2">
-              Engaging and informative initiative designed to valuable knowledge
-              about responsible pet ownership.
-            </p>
-            <div>
-              <NavLink to="/education">
-                {" "}
-                <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2">
-                  <FaUserGraduate></FaUserGraduate>
-                </button>
-              </NavLink>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-2">
+        {workshops.map((workshop) => (
+          <div
+            key={workshop.title}
+            className="group overflow-hidden rounded-3xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div className="grid sm:grid-cols-2">
+              <div className="overflow-hidden">
+                <img
+                  src={workshop.image}
+                  alt={workshop.title}
+                  className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-full"
+                />
+              </div>
+
+              <div className="flex flex-col justify-center p-5 sm:p-6">
+                <h3 className="text-xl font-extrabold text-slate-800">
+                  {workshop.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {workshop.description}
+                </p>
+
+                <NavLink
+                  to="/education"
+                  className="mt-5 flex h-10 w-10 items-center justify-center rounded-full border border-teal-700 text-teal-700 transition hover:bg-teal-700 hover:text-white"
+                  aria-label={`Learn about ${workshop.title}`}
+                >
+                  <FaUserGraduate />
+                </NavLink>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-          <div>
-            <img
-              className="rounded-l-3xl"
-              src="https://i.ibb.co/LJGFjHW/edu3.png"
-              alt=""
-            />
-          </div>
-          <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-            <p className="text-2xl font-extrabold ">Adopt & Thrive</p>
-            <p className="font-bold my-2">
-              Where insightful workshops guide you towards journey with your
-              newly adopted pet.
-            </p>
-            <div>
-              <NavLink to="/education">
-                <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2">
-                  <FaUserGraduate></FaUserGraduate>
-                </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-          <div>
-            <img
-              className="rounded-l-3xl"
-              src="https://i.ibb.co/VYyXtgb/education2.png"
-              alt=""
-            />
-          </div>
-          <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-            <p className="text-2xl font-extrabold ">Training Tails</p>
-            <p className="font-bold my-2">
-              Elevate your bond with your adopted pet through expert-led
-              workshops.
-            </p>
-            <div>
-              <NavLink to="/education">
-                {" "}
-                <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2">
-                  <FaUserGraduate></FaUserGraduate>
-                </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 shadow-md shadow-slate-400 rounded-3xl">
-          <div>
-            <img
-              className="rounded-l-3xl"
-              src="https://i.ibb.co/VqbNbN4/petedu4.png"
-              alt=""
-            />
-          </div>
-          <div className=" text-slate-800 bg-teal-50 w-full rounded-r-3xl p-3">
-            <p className="text-2xl font-extrabold ">Pet Care 101</p>
-            <p className="font-bold my-2">
-              Ensuring every owner is equipped with the knowledge to a lifetime
-              of joy with their furry friends
-            </p>
-            <div>
-              <NavLink to="/education">
-                {" "}
-                <button className="rounded-full border border-teal-800 hover:border-2 text-xl text-slate-800 p-2">
-                  <FaUserGraduate></FaUserGraduate>
-                </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 
