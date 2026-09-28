@@ -1,10 +1,10 @@
-# PAW
+# PAW (Pet Adoption & Donation Platform)
 <p>Service-based website focusing on pet adopption, donation, and resources for pet care</p>
 <p>Admin: admin@mail.com<br>
 Password: ad123AD!<br>
 Live-link: https://pet-adoption-2b1db.web.app<br>
-Client-site: https://github.com/jbjzeehad/project_11-client-site<br>
-Server-site: https://github.com/jbjzeehad/project_11-server-site<br>
+Client-site: https://github.com/jbjzeehad/paw-frontend<br>
+Server-site: https://github.com/jbjzeehad/paw-backend<br>
 </p>
 
 ## Features
