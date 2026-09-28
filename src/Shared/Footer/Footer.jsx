@@ -1,150 +1,143 @@
 import { FaFacebook, FaGithub, FaLinkedinIn, FaPaw } from "react-icons/fa";
-import { FiArrowUpRight, FiHeart, FiMail } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="mt-20 bg-slate-950 text-white">
-      <div className="page-container py-14 lg:py-20">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/10">
-                <img
-                  src="https://i.ibb.co/bdCZb5J/petlogo.png"
-                  alt="Paw logo"
-                  className="h-9 w-9 object-contain"
-                />
-              </div>
-
-              <div>
-                <p className="text-xl font-extrabold">
-                  Paw<span className="text-teal-400">Care</span>
-                </p>
-                <p className="text-xs text-slate-500">
-                  Find a friend. Give a home.
-                </p>
-              </div>
-            </div>
-
-            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">
-              Helping loving families connect with pets who are looking for a
-              safe, caring and permanent home.
-            </p>
-
-            <div className="mt-6 flex gap-2">
-              {[FaFacebook, FaGithub, FaLinkedinIn].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 text-slate-400 transition hover:border-teal-500 hover:bg-teal-500 hover:text-white"
-                >
-                  <Icon />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick links */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Explore
-            </h3>
-
-            <div className="mt-5 space-y-3 text-sm text-slate-400">
-              <a
-                href="/"
-                className="flex items-center gap-2 transition hover:text-teal-400"
-              >
-                Home
-                <FiArrowUpRight />
-              </a>
-
-              <a
-                href="/petlist"
-                className="flex items-center gap-2 transition hover:text-teal-400"
-              >
-                Find a Pet
-                <FiArrowUpRight />
-              </a>
-
-              <a
-                href="/dtncamp"
-                className="flex items-center gap-2 transition hover:text-teal-400"
-              >
-                Donation
-                <FiArrowUpRight />
-              </a>
-
-              <a
-                href="/education"
-                className="flex items-center gap-2 transition hover:text-teal-400"
-              >
-                Education
-                <FiArrowUpRight />
-              </a>
-            </div>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Support
-            </h3>
-
-            <div className="mt-5 space-y-3 text-sm text-slate-400">
-              <p className="transition hover:text-white">About Us</p>
-
-              <p className="transition hover:text-white">FAQs</p>
-
-              <p className="transition hover:text-white">Privacy Policy</p>
-
-              <p className="transition hover:text-white">Terms & Conditions</p>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Stay connected
-            </h3>
-
-            <p className="mt-5 text-sm leading-6 text-slate-400">
-              Get adoption tips, pet care guides and new pet updates.
-            </p>
-
-            <div className="mt-5 flex overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
-              <div className="flex items-center pl-3 text-slate-500">
-                <FiMail />
-              </div>
-
-              <input
-                type="email"
-                placeholder="Your email"
-                className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-white outline-none placeholder:text-slate-600"
+    <footer className="bg-slate-950 text-slate-300">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        {/* Brand */}
+        <div className="lg:col-span-1">
+          <NavLink to="/" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-700">
+              <img
+                src="https://i.ibb.co/bdCZb5J/petlogo.png"
+                alt="Paw logo"
+                className="h-8 w-8 object-contain"
               />
-
-              <button className="bg-teal-600 px-4 text-sm font-bold text-white transition hover:bg-teal-500">
-                Join
-              </button>
             </div>
 
-            <div className="mt-5 flex items-center gap-2 text-xs text-slate-500">
-              <FiHeart className="text-teal-500" />
-              Every adoption changes a life.
+            <div>
+              <p className="text-xl font-extrabold text-white">Paw</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-teal-400">
+                Pet Care & Adoption
+              </p>
             </div>
+          </NavLink>
+
+          <p className="mt-5 max-w-xs text-sm leading-6 text-slate-400">
+            Helping pets find loving homes while making pet care, education and
+            community support easier.
+          </p>
+        </div>
+
+        {/* Quick links */}
+        <div>
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            Explore
+          </h3>
+
+          <div className="space-y-3 text-sm">
+            <NavLink to="/" className="block transition hover:text-teal-400">
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/petlist"
+              className="block transition hover:text-teal-400"
+            >
+              Pet Listing
+            </NavLink>
+
+            <NavLink
+              to="/dtncamp"
+              className="block transition hover:text-teal-400"
+            >
+              Donation
+            </NavLink>
+
+            <NavLink
+              to="/education"
+              className="block transition hover:text-teal-400"
+            >
+              Education
+            </NavLink>
+          </div>
+        </div>
+
+        {/* Support */}
+        <div>
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            Support
+          </h3>
+
+          <div className="space-y-3 text-sm text-slate-400">
+            <p className="transition hover:text-teal-400">About Us</p>
+
+            <p className="transition hover:text-teal-400">FAQs</p>
+
+            <p className="transition hover:text-teal-400">Partnerships</p>
+
+            <p className="transition hover:text-teal-400">Privacy Policy</p>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        <div>
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            Stay Connected
+          </h3>
+
+          <p className="mb-4 text-sm leading-6 text-slate-400">
+            Get updates about pets, adoption and community activities.
+          </p>
+
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Your email"
+              className="min-w-0 flex-1 rounded-l-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-white outline-none focus:border-teal-600"
+            />
+
+            <button className="rounded-r-xl bg-teal-700 px-4 text-sm font-bold text-white transition hover:bg-teal-600">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-slate-900">
-        <div className="page-container flex flex-col items-center justify-between gap-3 py-5 text-xs text-slate-500 sm:flex-row">
-          <p>© 2023-26 PawCare. All rights reserved.</p>
+      <div className="border-t border-slate-800">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-5 sm:px-6 md:flex-row lg:px-8">
+          <p className="text-xs text-slate-500">
+            © 2024-26 Paw. All rights reserved.
+          </p>
 
-          <div className="flex items-center gap-2">
-            <FaPaw className="text-teal-500" />
-            Made for pets & people
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-slate-400 transition hover:bg-teal-700 hover:text-white"
+            >
+              <FaFacebook />
+            </a>
+
+            <a
+              href="#"
+              aria-label="GitHub"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-slate-400 transition hover:bg-teal-700 hover:text-white"
+            >
+              <FaGithub />
+            </a>
+
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-slate-400 transition hover:bg-teal-700 hover:text-white"
+            >
+              <FaLinkedinIn />
+            </a>
+
+            <FaPaw className="ml-2 text-teal-600" />
           </div>
         </div>
       </div>

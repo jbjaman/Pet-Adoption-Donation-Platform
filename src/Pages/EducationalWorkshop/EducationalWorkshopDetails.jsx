@@ -1,116 +1,282 @@
 import { useContext } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
-import { useLoaderData } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
-import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-import { FaUserGraduate } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { TbListDetails } from "react-icons/tb";
+import { useForm } from "react-hook-form";
+import { FaLocationDot, FaUserGraduate } from "react-icons/fa6";
 import { FiClock } from "react-icons/fi";
 import { PiGraduationCapBold } from "react-icons/pi";
+import { TbListDetails } from "react-icons/tb";
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const EducationalWorkshopDetails = () => {
-    const { user } = useContext(AuthContext);
-    const loadCourseDetails = useLoaderData();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const axiosSecure = UseAxiosSecure();
-    const onsubmit = async (data) => {
-        console.log("Button Clicked");
+  const { user } = useContext(AuthContext);
+  const loadCourseDetails = useLoaderData();
 
-        const enrolledCourse = {
-            coursename: data.coursename,
-            courseemail: data.courseemail,
-            coursenumber: data.coursenumber,
-            courseaddress: data.courseaddress,
-            finished: 'false',
-            owneremail: loadCourseDetails.email,
-            courseimage: loadCourseDetails.image
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-        }
-        console.log(enrolledCourse);
+  const axiosSecure = UseAxiosSecure();
 
-        const addEnrolledList = await axiosSecure.post('/enrolled', enrolledCourse);
-        console.log(addEnrolledList.data);
-        if (addEnrolledList.data.insertedId) {
-            reset();
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Enrolled Done",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        }
-        console.log(addEnrolledList.data);
+  const onsubmit = async (data) => {
+    const enrolledCourse = {
+      coursename: data.coursename,
+      courseemail: data.courseemail,
+      coursenumber: data.coursenumber,
+      courseaddress: data.courseaddress,
+      finished: "false",
+      owneremail: loadCourseDetails.email,
+      courseimage: loadCourseDetails.image,
+    };
 
+    const addEnrolledList = await axiosSecure.post("/enrolled", enrolledCourse);
+
+    if (addEnrolledList.data.insertedId) {
+      reset();
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Enrolled Done",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
+  };
 
-    return (
-        <>
-            <Helmet>
-                <title>Paw | Course Details</title>
-            </Helmet>
-            <div className="pt-32 min-h-screen px-10">
-                <div className=" grid grid-cols-4 shadow-md shadow-slate-400 rounded-3xl">
-                    <div className="">
-                        <img className="h-full rounded-l-3xl" src={loadCourseDetails.image} alt="" />
-                    </div>
-                    <div className="col-span-3 text-slate-800 bg-teal-50 w-full rounded-r-3xl px-5 py-3 grid" >
-                        <p className="text-3xl font-extrabold flex items-center gap-3"><PiGraduationCapBold></PiGraduationCapBold> {loadCourseDetails.name}</p>
-                        <p className="text-xl my-2 flex items-center gap-3"><FaUserGraduate></FaUserGraduate> {loadCourseDetails.instructor}</p>
-                        <p className="flex items-center text-lg gap-3"><FiClock></FiClock>{loadCourseDetails.duration} Days</p>
-                        <p className="flex items-center text-lg gap-3 my-2"><FaLocationDot></FaLocationDot>{loadCourseDetails.location}</p>
-                        <TbListDetails></TbListDetails>
-                        <p className="text-lg my-2">
-                            {loadCourseDetails.outline}
-                        </p>
+  return (
+    <>
+      <Helmet>
+        <title>Paw | Course Details</title>
+      </Helmet>
 
-                        <button onClick={() => document.getElementById('my_modal_1').showModal()} className="w-full rounded-lg border border-teal-800 hover:border-2 text-base font-bold text-slate-800 px-3 py-1">Done</button>
-                    </div>
-                    <dialog id="my_modal_1" className="modal">
-                        <div className="modal-box bg-slate-100">
-                            <form onSubmit={handleSubmit(onsubmit)}>
-                                <div className="grid  gap-3 m-2">
-                                    <span className="font-bold  text-slate-900 text-xl">Name</span>
-                                    <input type="text" {...register("coursename", { required: true })} defaultValue={user.displayName} placeholder="" className="p-2 px-3 rounded-lg text-xl bg-white text-slate-900 outline-none" />
+      <div className="min-h-screen bg-slate-50 px-4 pb-16 pt-28 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+          <div className="grid lg:grid-cols-2">
+            {/* Image */}
+            <div className="relative min-h-[320px] lg:min-h-[600px]">
+              <img
+                src={loadCourseDetails.image}
+                alt={loadCourseDetails.name}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
 
-                                </div>
-                                <div className="grid  gap-3 m-2">
-                                    <span className="font-bold  text-slate-900 text-xl">Email</span>
-                                    <input type="text" {...register("courseemail", { required: true })} defaultValue={user.email} placeholder="" className="p-2 px-3 rounded-lg text-xl bg-white text-slate-900 outline-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
 
-                                </div>
-                                <div className="grid  gap-3 m-2">
-                                    <span className="font-bold  text-slate-900 text-xl">Phone Number</span>
-                                    <input type="text" {...register("coursenumber", { required: true })} placeholder="" className="p-2 px-3 rounded-lg text-xl bg-white text-slate-900 outline-none" />
-                                    {errors.adpnumber && (
-                                        <p>number is required</p>
-                                    )}
-                                </div>
-                                <div className="grid  gap-3 m-2">
-                                    <span className="font-bold  text-slate-900 text-xl">Address</span>
-                                    <input type="text" {...register("courseaddress", { required: true })} placeholder="" className="p-2 px-3 rounded-lg text-xl bg-white text-slate-900 outline-none" />
-                                    {errors.adpaddress && (
-                                        <p>address is required</p>
-                                    )}
-                                </div>
-                                <button className="border border-teal-800 mx-2 mt-2 py-2 px-3 rounded-lg text-slate-900 hover:bg-teal-800 hover:text-slate-100 ">SUBMIT</button>
-                            </form>
-                            <div className="modal-action">
-                                <form method="dialog">
-                                    <button className="border border-teal-800 p-2 text-lg rounded-lg text-slate-900 hover:bg-teal-800 hover:text-slate-100 ">Close</button>
-                                </form>
-                            </div>
-                        </div>
-                    </dialog>
+              <div className="absolute bottom-6 left-6 right-6 text-white sm:left-8 sm:right-8">
+                <span className="rounded-full bg-teal-700/90 px-3 py-1.5 text-xs font-bold backdrop-blur">
+                  Educational Workshop
+                </span>
+
+                <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+                  {loadCourseDetails.name}
+                </h1>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div className="flex flex-col p-6 sm:p-8 lg:p-10">
+              <div className="flex-1">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-xl text-teal-700">
+                    <PiGraduationCapBold />
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Course
+                    </p>
+
+                    <h2 className="mt-1 text-2xl font-bold text-slate-800">
+                      {loadCourseDetails.name}
+                    </h2>
+                  </div>
                 </div>
 
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <FaUserGraduate className="text-lg text-teal-700" />
+
+                    <p className="mt-3 text-xs text-slate-400">Instructor</p>
+
+                    <p className="mt-1 font-semibold text-slate-700">
+                      {loadCourseDetails.instructor}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <FiClock className="text-lg text-teal-700" />
+
+                    <p className="mt-3 text-xs text-slate-400">Duration</p>
+
+                    <p className="mt-1 font-semibold text-slate-700">
+                      {loadCourseDetails.duration} Days
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-4 sm:col-span-2">
+                    <FaLocationDot className="text-lg text-teal-700" />
+
+                    <p className="mt-3 text-xs text-slate-400">Location</p>
+
+                    <p className="mt-1 font-semibold text-slate-700">
+                      {loadCourseDetails.location}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  <div className="flex items-center gap-2">
+                    <TbListDetails className="text-xl text-teal-700" />
+
+                    <h3 className="font-bold text-slate-800">Course Outline</h3>
+                  </div>
+
+                  <p className="mt-3 rounded-2xl bg-slate-50 p-5 text-sm leading-7 text-slate-600">
+                    {loadCourseDetails.outline}
+                  </p>
+                </div>
+              </div>
+
+              {/* Enroll */}
+              <div className="mt-8 border-t border-slate-100 pt-6">
+                <button
+                  onClick={() =>
+                    document.getElementById("enrollment_modal").showModal()
+                  }
+                  className="w-full rounded-xl bg-teal-700 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-teal-800"
+                >
+                  Enroll in This Course
+                </button>
+              </div>
             </div>
-        </>
-    );
+          </div>
+        </div>
+
+        {/* Modal */}
+        <dialog id="enrollment_modal" className="modal">
+          <div className="modal-box max-w-lg rounded-3xl bg-white p-6 sm:p-8">
+            <div className="mb-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700">
+                Enrollment Form
+              </span>
+
+              <h3 className="mt-2 text-2xl font-bold text-slate-800">
+                Enroll Now
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Fill in your contact information to enroll in this course.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit(onsubmit)} className="space-y-4">
+              {/* Name */}
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+                  Name
+                </label>
+
+                <input
+                  type="text"
+                  {...register("coursename", {
+                    required: true,
+                  })}
+                  defaultValue={user.displayName}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-50"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+                  Email
+                </label>
+
+                <input
+                  type="text"
+                  {...register("courseemail", {
+                    required: true,
+                  })}
+                  defaultValue={user.email}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-50"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+                  Phone Number
+                </label>
+
+                <input
+                  type="text"
+                  {...register("coursenumber", {
+                    required: true,
+                  })}
+                  placeholder="Enter phone number"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-50"
+                />
+
+                {errors.coursenumber && (
+                  <p className="mt-1 text-xs font-medium text-red-500">
+                    Phone number is required.
+                  </p>
+                )}
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+                  Address
+                </label>
+
+                <input
+                  type="text"
+                  {...register("courseaddress", {
+                    required: true,
+                  })}
+                  placeholder="Enter your address"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-50"
+                />
+
+                {errors.courseaddress && (
+                  <p className="mt-1 text-xs font-medium text-red-500">
+                    Address is required.
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-teal-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-teal-800"
+              >
+                Confirm Enrollment
+              </button>
+            </form>
+
+            <div className="mt-4">
+              <form method="dialog">
+                <button className="w-full rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50">
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </div>
+    </>
+  );
 };
 
 export default EducationalWorkshopDetails;
