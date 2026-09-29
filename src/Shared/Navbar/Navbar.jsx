@@ -95,7 +95,7 @@ const Navbar = () => {
           {user ? (
             <>
               <NavLink
-                to="/dashboard"
+                to="/dashboard/addpet"
                 className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 transition hover:border-teal-200 hover:bg-teal-50"
               >
                 <div className="h-9 w-9 overflow-hidden rounded-full bg-slate-100">

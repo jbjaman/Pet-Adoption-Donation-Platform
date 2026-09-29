@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Brand */}
         <div className="lg:col-span-1">
           <NavLink to="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-700">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl brightness-200">
               <img
                 src="https://i.ibb.co/bdCZb5J/petlogo.png"
                 alt="Paw logo"
