@@ -7,61 +7,55 @@ Paw is a React-based pet adoption and animal-support platform where users can di
 - **Admin Password:** ad123AD!
 - **Backend** :
 
-## ◈ Table of Contents
+# Table of Contents
 
-- [Project Overview](#project-overview)
-- [Key Features](#key-features)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Pages and Modules](#pages-and-modules)
-- [Routing](#routing)
-- [Authentication](#authentication)
-- [API Architecture](#api-architecture)
-- [Data and State Management](#data-and-state-management)
-- [Forms and Validation](#forms-and-validation)
-- [UI and Design System](#ui-and-design-system)
-- [Environment Variables](#environment-variables)
-- [Getting Started](#getting-started)
+- [1. Project Overview](#project-overview)
+- [2. Key Features](#key-features)
+- [3. Technology Stack](#technology-stack)
+- [4. Project Structure](#project-structure)
+- [5. Routing](#routing)
+- [6. API Architecture](#api-architecture)
+- [7. Data and State Management](#data-and-state-management)
 - [Development](#development)
 - [Production Build](#production-build)
 - [Firebase Deployment](#firebase-deployment)
 - [Important Implementation Notes](#important-implementation-notes)
 - [Future Improvements](#future-improvements)
 
-## ◈ Project Overview
+# Project Overview
 
 Paw is designed around three main areas:
 
-1. **Pet Adoption**
-   - Browse available pets.
-   - Search pets by name.
-   - Filter pets by category.
-   - View detailed pet information.
-   - Submit an adoption request.
-   - Manage personally listed pets.
+- **Pet Adoption**
+  - Browse available pets.
+  - Search pets by name.
+  - Filter pets by category.
+  - View detailed pet information.
+  - Submit an adoption request.
+  - Manage personally listed pets.
 
-2. **Donation Campaigns**
-   - Browse active donation campaigns.
-   - View campaign details.
-   - Create donation campaigns.
-   - Update and pause personal campaigns.
-   - View donation-related information from the dashboard.
-   - Admin-side campaign/donation management.
+- **Donation Campaigns**
+  - Browse active donation campaigns.
+  - View campaign details.
+  - Create donation campaigns.
+  - Update and pause personal campaigns.
+  - View donation-related information from the dashboard.
+  - Admin-side campaign/donation management.
 
-3. **Pet Education**
-   - Browse educational workshops/courses.
-   - View course details.
-   - Enroll in courses.
-   - Track enrolled courses.
-   - Create and update courses.
-   - Mark courses as finished.
-   - Manage courses from the admin dashboard.
+- **Pet Education**
+  - Browse educational workshops/courses.
+  - View course details.
+  - Enroll in courses.
+  - Track enrolled courses.
+  - Create and update courses.
+  - Mark courses as finished.
+  - Manage courses from the admin dashboard.
 
 The application also provides Firebase-based authentication, JWT-based API authorization, responsive navigation, role-aware dashboard navigation, loading states, empty states, form validation, and confirmation dialogs.
 
-## ◈ Key Features
+# Key Features
 
-### Pet Adoption
+### ◈ Pet Adoption
 
 - Pet listing page with:
   - Search by pet name.
@@ -78,7 +72,7 @@ The application also provides Firebase-based authentication, JWT-based API autho
 - Admin-side pet management.
 - Adoption request management.
 
-### Donation Campaigns
+### ◈ Donation Campaigns
 
 - Browse donation campaigns.
 - View individual campaign details.
@@ -92,7 +86,7 @@ The application also provides Firebase-based authentication, JWT-based API autho
 
 **The campaign details page contains a donation form UI, but its current submit handler only logs the submitted data. There is no Stripe or other real payment gateway implementation in the current frontend code.**
 
-### Educational Workshops and Courses
+### ◈ Educational Workshops and Courses
 
 - Browse educational workshops.
 - View individual course details.
@@ -111,7 +105,7 @@ The application also provides Firebase-based authentication, JWT-based API autho
 - Finish courses.
 - Admin course management.
 
-### Authentication
+### ◈ Authentication
 
 - Email/password registration.
 - Email/password login.
@@ -124,55 +118,49 @@ The application also provides Firebase-based authentication, JWT-based API autho
 - Automatic logout/redirect when the API returns `401` or `403`.
 - Banned-user handling during login.
 
-### Dashboard
+### ◈ Dashboard
 
 The dashboard provides different management sections depending on the user's role.
 
-#### Regular user features
+- Regular user features
+  - Add Pet
+  - My Pets
+  - Update My Pets
+  - My Donation
+  - My Campaigns
+  - Update My Campaigns
+  - Create Campaign
+  - Adoption Requests
+  - Create Course
+  - My Courses
+  - Update My Courses
+  - Enrolled Courses
 
-- Add Pet
-- My Pets
-- Update My Pets
-- My Donation
-- My Campaigns
-- Update My Campaigns
-- Create Campaign
-- Adoption Requests
-- Create Course
-- My Courses
-- Update My Courses
-- Enrolled Courses
+- Admin features
+  - All Users
+  - All Pets
+  - All Donations
+  - All Courses
 
-#### Admin features
+- Responsive UI
+  - Mobile
+  - Tablet
+  - Desktop
 
-- All Users
-- All Pets
-- All Donations
-- All Courses
+- The project uses:
+  - Responsive grids.
+  - Mobile navigation.
+  - Responsive dashboard navigation.
+  - Responsive forms.
+  - Responsive tables with horizontal scrolling.
+  - Empty states.
+  - Loading skeletons.
+  - Hover/focus states.
+  - Reusable visual styles.
 
-### Responsive UI
+# Technology Stack
 
-The interface is designed for:
-
-- Mobile
-- Tablet
-- Desktop
-
-The project uses:
-
-- Responsive grids.
-- Mobile navigation.
-- Responsive dashboard navigation.
-- Responsive forms.
-- Responsive tables with horizontal scrolling.
-- Empty states.
-- Loading skeletons.
-- Hover/focus states.
-- Reusable visual styles.
-
-## ◈ Technology Stack
-
-### Frontend
+### ◈ Frontend
 
 | Technology         | Purpose                                    |
 | ------------------ | ------------------------------------------ |
@@ -185,7 +173,7 @@ The project uses:
 | Swiper             | Homepage image carousel                    |
 | React Helmet Async | Page titles/meta handling                  |
 
-### State and Data
+### ◈ State and Data
 
 | Technology           | Purpose                              |
 | -------------------- | ------------------------------------ |
@@ -195,7 +183,7 @@ The project uses:
 | React Hook Form      | Form handling and validation         |
 | Formik               | Form library included in the project |
 
-### Authentication
+### ◈ Authentication
 
 | Technology              | Purpose                         |
 | ----------------------- | ------------------------------- |
@@ -203,20 +191,20 @@ The project uses:
 | JWT                     | Backend API authorization       |
 | Local Storage           | Stores backend access token     |
 
-### UI Feedback
+### ◈ UI Feedback
 
 | Technology  | Purpose                               |
 | ----------- | ------------------------------------- |
 | SweetAlert2 | Confirmation and success/error alerts |
 
-### Deployment
+### ◈ Deployment
 
 | Technology       | Purpose             |
 | ---------------- | ------------------- |
 | Firebase Hosting | Frontend hosting    |
 | Vercel           | Backend API hosting |
 
-## ◈ Project Structure
+# Project Structure
 
 ```
 Pet-Adoption-Donation-Platform/
@@ -353,3 +341,256 @@ Pet-Adoption-Donation-Platform/
     ├── index.css
     └── main.jsx
 ```
+
+# Routing
+
+The application uses React Router's `createHashRouter`.
+Because of this, routes appear after `/#/`.
+
+Examples:
+
+```
+/#/
+/#/petlist
+/#/petdetails/:id
+/#/dtncamp
+/#/dtncampdetails/:id
+/#/education
+/#/education/:id
+/#/login
+/#/signup
+/#/dashboard
+```
+
+### ◈ Public Routes
+
+| Route                 | Purpose                   |
+| --------------------- | ------------------------- |
+| `/`                   | Homepage                  |
+| `/petlist`            | Available pet listing     |
+| `/petdetails/:id`     | Pet details               |
+| `/dtncamp`            | Donation campaigns        |
+| `/dtncampdetails/:id` | Donation campaign details |
+| `/education`          | Educational workshops     |
+| `/education/:id`      | Course details            |
+| `/login`              | Login                     |
+| `/signup`             | Registration              |
+
+### ◈ Dashboard Routes
+
+| Route                              | Purpose               |
+| ---------------------------------- | --------------------- |
+| `/dashboard/addpet`                | Add a pet             |
+| `/dashboard/mypets`                | Manage user's pets    |
+| `/dashboard/updatemypets/:id`      | Update a pet          |
+| `/dashboard/mydonation`            | User donation section |
+| `/dashboard/mycampaigns`           | User campaigns        |
+| `/dashboard/updatemycampaigns/:id` | Update campaign       |
+| `/dashboard/createcampaign`        | Create campaign       |
+| `/dashboard/adoptionreq`           | Adoption requests     |
+| `/dashboard/createcourse`          | Create course         |
+| `/dashboard/mycourses`             | User courses          |
+| `/dashboard/updatemycourses/:id`   | Update course         |
+| `/dashboard/enrolledcourses`       | Enrolled courses      |
+
+### ◈ Admin Routes
+
+| Route                    | Purpose            |
+| ------------------------ | ------------------ |
+| `/dashboard/allusers`    | Manage users       |
+| `/dashboard/allpets`     | Manage all pets    |
+| `/dashboard/alldonation` | Manage donations   |
+| `/dashboard/allcourses`  | Manage all courses |
+
+# API Architecture
+
+The frontend communicates with: https://pet-adoption-server-one.vercel.app
+
+The project uses two Axios clients.
+
+### ◈ Public Axios
+
+`UseAxiosPublic.jsx`
+
+Used for public API requests.
+
+Base URL: https://pet-adoption-server-one.vercel.app
+
+### ◈ Secure Axios
+
+`UseAxiosSecure.jsx`
+
+Used for authenticated operations.
+
+## Main API Resources
+
+The frontend interacts with the following backend resources.
+
+### ◈ Users
+
+```text
+GET    /users
+GET    /users/admin/:email
+GET    /users/admin/:id
+PATCH  /users/:id
+```
+
+Used for:
+
+- User listing.
+- Role checking.
+- Admin management.
+- User updates.
+
+### ◈ Authentication
+
+```text
+POST /jwt
+```
+
+Used to obtain the backend JWT after Firebase authentication.
+
+### ◈ Pets
+
+```text
+GET    /pets
+GET    /pets/:id
+POST   /pets
+PATCH  /pets/:id
+DELETE /pets/:id
+```
+
+Used for:
+
+- Pet listing.
+- Pet details.
+- Adding pets.
+- Updating pets.
+- Deleting pets.
+- Admin pet management.
+
+### ◈ Adoption
+
+```text
+POST   /adoption
+GET    /adoption
+PATCH  /adoption/:id
+DELETE /adoption/:id
+```
+
+Used for adoption request creation and management.
+
+### ◈ Donations
+
+```text
+GET    /donations
+GET    /donations/:id
+POST   /donations
+PATCH  /donations/:id
+DELETE /donations/:id
+```
+
+Used for campaign creation, listing, updating, pausing and deletion.
+
+### ◈ Courses
+
+```text
+GET    /courses
+GET    /courses/:id
+POST   /courses
+PATCH  /courses/:id
+PUT    /courses/:id
+DELETE /courses/:id
+```
+
+Used for course management.
+
+### ◈ Enrollments
+
+```text
+GET    /enrolled
+POST   /enrolled
+PATCH  /enrolled/:id
+DELETE /enrolled/:id
+```
+
+Used for course enrollment and completion management.
+
+# Data and State Management
+
+The project uses **TanStack React Query** for server state.
+
+- React Query is used for:
+  - Fetching API data.
+  - Caching server responses.
+  - Refetching after mutations.
+  - Managing loading states.
+- Local UI state is handled with React hooks.
+- Authentication state is managed globally through: AuthProvider, AuthContext, UseAuthor
+
+### ◈ Forms and Validation
+
+The project primarily uses **React Hook Form** for forms such as:
+
+- Login.
+- Registration.
+- Add Pet.
+- Update Pet.
+- Create Campaign.
+- Update Campaign.
+- Create Course.
+- Update Course.
+- Adoption Request.
+- Course Enrollment.
+- Donation form UI.
+
+Validation errors are displayed directly inside the relevant form fields.
+
+### ◈ Image Upload
+
+The project uses **ImgBB** for image hosting in forms that upload images. The image is uploaded first and the resulting image URL is then stored with the relevant application data.
+
+# Future Improvements
+
+The current application can be extended with:
+
+- Real payment integration such as Stripe.
+- Stronger route protection by activating `PrivateRoute` and `AdminRoute`.
+- Server-side pagination for large pet/course/campaign datasets.
+- More advanced pet filtering.
+- Donation progress based on real transaction totals.
+- Better API error handling and retry states.
+- Centralized API endpoint constants.
+- Better TypeScript coverage.
+- Automated testing.
+- Accessibility improvements.
+- Image optimization.
+- Production logging and monitoring.
+- More granular user permissions.
+
+# Project Summary
+
+Paw combines pet adoption, community support, donation campaigns, and pet education into a single responsive web application.
+
+```
+                    PAW
+                     │
+       ┌─────────────┼─────────────┐
+       │             │             │
+       ▼             ▼             ▼
+   Adoption      Donations      Education
+       │             │             │
+       ▼             ▼             ▼
+    Pets &        Campaigns     Courses &
+    Requests                     Enrollment
+       │             │             │
+       └─────────────┼─────────────┘
+                     │
+                     ▼
+               User Dashboard
+                     │
+                     ▼
+              Admin Management
+```
+
+The frontend is built with React and Vite, Firebase handles authentication, the Vercel-hosted REST API handles application data, React Query manages server state, Axios handles HTTP communication, and Firebase Hosting serves the production frontend.
