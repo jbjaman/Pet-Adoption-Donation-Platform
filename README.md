@@ -16,11 +16,9 @@ Paw is a React-based pet adoption and animal-support platform where users can di
 - [5. Routing](#routing)
 - [6. API Architecture](#api-architecture)
 - [7. Data and State Management](#data-and-state-management)
-- [Development](#development)
-- [Production Build](#production-build)
-- [Firebase Deployment](#firebase-deployment)
-- [Important Implementation Notes](#important-implementation-notes)
-- [Future Improvements](#future-improvements)
+- [8. Firebase Deployment](#firebase-deployment)
+- [9. Important Implementation Notes](#important-implementation-notes)
+- [10. Future Improvements](#future-improvements)
 
 # Project Overview
 
@@ -516,6 +514,38 @@ DELETE /enrolled/:id
 
 Used for course enrollment and completion management.
 
+# Firebase Deployment
+
+The project is already configured for Firebase Hosting.
+
+`firebase.json` uses:
+
+```json
+{
+  "hosting": {
+    "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
+
+The rewrite is important because the application is a client-side React application.
+
+### ◈ Deploy Updated Code
+
+After changing the frontend:
+
+```bash
+npm run build
+firebase login
+firebase deploy --only hosting
+```
+
 # Data and State Management
 
 The project uses **TanStack React Query** for server state.
@@ -549,6 +579,68 @@ Validation errors are displayed directly inside the relevant form fields.
 ### ◈ Image Upload
 
 The project uses **ImgBB** for image hosting in forms that upload images. The image is uploaded first and the resulting image URL is then stored with the relevant application data.
+
+# Important Implementation Notes
+
+### ◈ Hash Routing
+
+The application uses:
+
+```jsx
+createHashRouter(...)
+```
+
+instead of browser-history routing.
+
+Therefore URLs contain:
+
+```text
+/#/
+```
+
+This also works well with Firebase Hosting without requiring server-side route handling for every React route.
+
+### ◈ Backend Is Separate
+
+This repository is the **frontend/client application**.
+
+The backend API is hosted separately and is referenced by the frontend through Axios and route loaders.
+
+Changing frontend code does not deploy or modify the backend.
+
+### ◈ Firebase Is Used for Authentication
+
+- Firebase Authentication handles:
+  - Account creation.
+  - Email/password login.
+  - Google login.
+  - Logout.
+  - Firebase auth-state monitoring.
+  - User profile information.
+
+### ◈ Role-Based Dashboard
+
+The dashboard reads user information from the backend and uses the role to display administration navigation.
+
+Admin-specific areas include:
+
+```text
+All Users
+All Pets
+All Donations
+All Courses
+```
+
+### ◈ Donation Payment Status
+
+The current frontend contains a donation amount and credit-card form UI.
+However, the current submit handler does not connect to Stripe, PayPal, or another payment processor. It currently logs the submitted information.
+
+Therefore, the project should **not** be described as having a production payment gateway unless one is added later.
+
+### ◈ Image Hosting
+
+Pet, course, and campaign forms use an external image-hosting service rather than Firebase Storage.
 
 # Future Improvements
 
