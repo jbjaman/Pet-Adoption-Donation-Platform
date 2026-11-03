@@ -88,7 +88,7 @@ const Login = () => {
       <div className="min-h-screen bg-slate-50 pt-[76px]">
         <div className="mx-auto grid min-h-[calc(100vh-76px)] max-w-7xl lg:grid-cols-2">
           {/* Left side */}
-          <div className="flex items-center justify-center px-5 py-12 sm:px-10 lg:px-14">
+          <div className="flex items-center justify-center px-5 py-1 sm:px-10 lg:px-14">
             <div className="w-full max-w-md">
               <div className="mb-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50">
@@ -158,9 +158,13 @@ const Login = () => {
                 >
                   Login
                 </button>
+                <p className="text-base text-teal-800 font-bold flex items-center gap-3">
+                  <span>• Email: admin@mail.com</span>
+                  <span>• Password: ad123AD!</span>
+                </p>
               </form>
 
-              <div className="my-7 flex items-center gap-3">
+              <div className="mb-7 mt-3 flex items-center gap-3">
                 <div className="h-px flex-1 bg-slate-200" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Or continue with
